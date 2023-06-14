@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>assignment</title>
+    <link rel="stylesheet" href="test.css"> 
+ 
+</head>
+<body>
+    <div class="project-container">
+        <div class="inner-container" id="first">
+            <div class="box" draggable="true">box1</div>
+            <div class="box" draggable="true">box2</div>
+            <div class="box" draggable="true">box3</div>
+            <div class="box" draggable="true">box4</div>
+            <div class="box" draggable="true">box5</div>
+        </div>
+        <div class="inner-container" id="second">
+        </div>
+    </div>
+    <div class="button-container">
+    <button class="reset-button" id="reset">Reset</button>
+    <p class="message" id="message-item"></p>
+</div>
+<script>
+    let boxes=document.getElementsByClassName("box");
+
+const firstContainer=document.getElementById("first");
+const secondContainer=document.getElementById("second");
+const resetButton=document.getElementById("reset");
+const messageElement=document.getElementById("message-item");
+
+for (box of boxes){
+    box.addEventListener("dragstart",function(event){
+        let selectedBox=event.target;
+        secondContainer.addEventListener("dragover",function(event){
+            event.preventDefault();
+        })
+        secondContainer.addEventListener("drop",function(event){
+            selectedBox.classList.add("box-style");
+            secondContainer.appendChild(selectedBox);
+            messageElement.textContent="Hey! successfully dropped"
+            selectedBox=null;
+        })
+    })
+}
+
+resetButton.addEventListener("click",function(event){
+    if (secondContainer.textContent!==""){
+    for(box of boxes){
+        box.classList.remove("box-style");
+        firstContainer.appendChild(box);
+    }
+
+ }
+ secondContainer.textContent=""; 
+ messageElement.textContent="";
+})
+
+</script>
+
+</body>
+</html>
